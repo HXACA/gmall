@@ -1,4 +1,10 @@
-# gmail 本地修改版本
+# gmail
 
-gmail-user-service 用户服务service层 8070
-gmail-user-web 用户服务web层 8080
+整合Springboot,mybatis的电商网站模板  
+前后端分离,采用Dubbo服务框架,mySql数据库   
+
+gmail-user-service 用户服务service层 8070  
+gmail-user-web 用户服务web层 8080  
+
+gmail-manage-service manage的service层 8071  
+gmail-manage-web manage的web层 8081  
