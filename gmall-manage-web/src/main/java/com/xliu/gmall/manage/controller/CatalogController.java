@@ -5,11 +5,8 @@ import com.xliu.gmall.bean.PmsBaseCatalog1;
 import com.xliu.gmall.bean.PmsBaseCatalog2;
 import com.xliu.gmall.bean.PmsBaseCatalog3;
 import com.xliu.gmall.service.CatalogService;
-import org.springframework.scheduling.annotation.Async;
-import org.springframework.scheduling.annotation.EnableAsync;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 

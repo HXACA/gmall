@@ -2,6 +2,7 @@ package com.xliu.gmall.service;
 
 import com.xliu.gmall.bean.PmsBaseAttrInfo;
 import com.xliu.gmall.bean.PmsBaseAttrValue;
+import com.xliu.gmall.bean.PmsBaseSaleAttr;
 
 import java.util.List;
 
@@ -16,4 +17,6 @@ public interface AttrService {
     String saveAttrInfo(PmsBaseAttrInfo pmsBaseAttrInfo);
 
     List<PmsBaseAttrValue> getAttrValueList(String attrId);
+
+    List<PmsBaseSaleAttr> baseSaleAttrList();
 }
