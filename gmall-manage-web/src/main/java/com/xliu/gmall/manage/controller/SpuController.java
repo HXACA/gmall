@@ -1,7 +1,9 @@
 package com.xliu.gmall.manage.controller;
 
 import com.alibaba.dubbo.config.annotation.Reference;
+import com.xliu.gmall.bean.PmsProductImage;
 import com.xliu.gmall.bean.PmsProductInfo;
+import com.xliu.gmall.bean.PmsProductSaleAttr;
 import com.xliu.gmall.manage.util.PmsUploadUtil;
 import com.xliu.gmall.service.SpuService;
 import org.springframework.stereotype.Controller;
@@ -40,6 +42,18 @@ public class SpuController {
         //将文件上传到分布式存储系统
         String imgUrl = PmsUploadUtil.uploadImage(multipartFile);
         return imgUrl;
+    }
+
+    @RequestMapping("spuSaleAttrList")
+    @ResponseBody
+    public List<PmsProductSaleAttr> spuSaleAttrList(String spuId){
+        return spuService.spuSaleAttrList(spuId);
+    }
+
+    @RequestMapping("spuImageList")
+    @ResponseBody
+    public List<PmsProductImage> spuImageList(String spuId){
+        return spuService.spuImageList(spuId);
     }
 
 }
