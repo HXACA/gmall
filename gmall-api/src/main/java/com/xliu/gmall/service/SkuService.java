@@ -1,6 +1,9 @@
 package com.xliu.gmall.service;
 
+import com.xliu.gmall.bean.PmsProductSaleAttr;
 import com.xliu.gmall.bean.PmsSkuInfo;
+
+import java.util.List;
 
 /**
  * @author liuxin
@@ -9,4 +12,6 @@ import com.xliu.gmall.bean.PmsSkuInfo;
  */
 public interface SkuService {
     String saveSkuInfo(PmsSkuInfo pmsSkuInfo);
+
+    PmsSkuInfo getSkuById(String skuId);
 }

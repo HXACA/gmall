@@ -1,15 +1,10 @@
 package com.xliu.gmall.manage.service.impl;
 
 import com.alibaba.dubbo.config.annotation.Service;
-import com.xliu.gmall.bean.PmsSkuAttrValue;
-import com.xliu.gmall.bean.PmsSkuImage;
-import com.xliu.gmall.bean.PmsSkuInfo;
-import com.xliu.gmall.bean.PmsSkuSaleAttrValue;
-import com.xliu.gmall.manage.mapper.PmsSkuAttrValueMapper;
-import com.xliu.gmall.manage.mapper.PmsSkuImageMapper;
-import com.xliu.gmall.manage.mapper.PmsSkuInfoMapper;
-import com.xliu.gmall.manage.mapper.PmsSkuSaleAttrValueMapper;
+import com.xliu.gmall.bean.*;
+import com.xliu.gmall.manage.mapper.*;
 import com.xliu.gmall.service.SkuService;
+import com.xliu.gmall.service.SpuService;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
@@ -19,6 +14,7 @@ import java.util.List;
  * @version 1.0
  * @date 2020/3/5 9:10
  */
+
 @Service
 public class SkuServiceImpl implements SkuService {
 
@@ -34,6 +30,11 @@ public class SkuServiceImpl implements SkuService {
     @Autowired
     PmsSkuSaleAttrValueMapper pmsSkuSaleAttrValueMapper;
 
+    @Autowired
+    PmsProductSaleAttrMapper pmsProductSaleAttrMapper;
+
+    @Autowired
+    PmsProductSaleAttrValueMapper pmsProductSaleAttrValueMapper;
 
     @Override
     public String saveSkuInfo(PmsSkuInfo pmsSkuInfo) {
@@ -63,5 +64,20 @@ public class SkuServiceImpl implements SkuService {
             return "false";
         }
         return "success";
+    }
+
+    @Override
+    public PmsSkuInfo getSkuById(String skuId) {
+        PmsSkuInfo pmsSkuInfo = new PmsSkuInfo();
+        pmsSkuInfo.setId(skuId);
+        PmsSkuInfo skuInfo = pmsSkuInfoMapper.selectOne(pmsSkuInfo);
+
+        //查询图片
+        PmsSkuImage pmsSkuImage = new PmsSkuImage();
+        pmsSkuImage.setSkuId(skuId);
+        List<PmsSkuImage> pmsSkuImages = pmsSkuImageMapper.select(pmsSkuImage);
+        skuInfo.setSkuImageList(pmsSkuImages);
+
+        return skuInfo;
     }
 }

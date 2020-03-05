@@ -18,8 +18,8 @@ public class GmallManageWebApplicationTests {
 
     @Test
     public void contextLoads() throws IOException, MyException {
-        String path = GmallManageWebApplicationTests.class.getResource("/tracker.conf").getPath();
-        ClientGlobal.init(path);
+        String path = GmallManageWebApplicationTests.class.getResource("/tracker.properties").getPath();
+        ClientGlobal.initByProperties(path);
 
         TrackerClient trackerClient = new TrackerClient();
         TrackerServer trackerServer = trackerClient.getTrackerServer();
