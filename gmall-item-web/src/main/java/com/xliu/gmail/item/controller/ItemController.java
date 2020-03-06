@@ -1,6 +1,7 @@
 package com.xliu.gmail.item.controller;
 
 import com.alibaba.dubbo.config.annotation.Reference;
+import com.alibaba.fastjson.JSON;
 import com.xliu.gmall.bean.PmsProductSaleAttr;
 import com.xliu.gmall.bean.PmsSkuInfo;
 import com.xliu.gmall.bean.PmsSkuSaleAttrValue;
@@ -12,7 +13,9 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author liuxin
@@ -31,10 +34,26 @@ public class ItemController {
 
     @RequestMapping("{skuId}.html")
     public String item(@PathVariable String skuId, ModelMap modelMap){
+        //查询SkuInfo
         PmsSkuInfo pmsSkuInfo = skuService.getSkuById(skuId);
-        List<PmsProductSaleAttr> pmsProductSaleAttr = spuService.spuSaleAttrListCheckBySku(pmsSkuInfo.getProductId(),skuId);
         modelMap.put("skuInfo",pmsSkuInfo);
+        //查询关联的销售属性并标记当前Sku为选中状态
+        List<PmsProductSaleAttr> pmsProductSaleAttr = spuService.getSpuSaleAttrListCheckBySku(pmsSkuInfo.getProductId(),skuId);
         modelMap.put("spuSaleAttrListCheckBySku",pmsProductSaleAttr);
+        //查询当前Spu下的所有Sku
+        List<PmsSkuInfo> pmsSkuInfos = skuService.getSkuSaleAttrValueListBySpu(pmsSkuInfo.getProductId());
+        Map<String,String> skuSaleAttrHash = new HashMap<>();
+        for (PmsSkuInfo skuInfo : pmsSkuInfos) {
+            String v = skuInfo.getId();
+            String k = "";
+            List<PmsSkuSaleAttrValue> skuSaleAttrValueList = skuInfo.getSkuSaleAttrValueList();
+            for (PmsSkuSaleAttrValue pmsSkuSaleAttrValue : skuSaleAttrValueList) {
+                k += pmsSkuSaleAttrValue.getSaleAttrValueId()+"|";
+            }
+            skuSaleAttrHash.put(k,v);
+        }
+        String s = JSON.toJSONString(skuSaleAttrHash);
+        modelMap.put("skuSaleAttrHash",s);
         return "item";
     }
 }

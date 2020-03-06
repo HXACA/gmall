@@ -13,13 +13,15 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 import java.io.IOException;
 
+@RunWith(SpringRunner.class)
 @SpringBootTest
 public class GmallManageWebApplicationTests {
 
     @Test
     public void contextLoads() throws IOException, MyException {
         String path = GmallManageWebApplicationTests.class.getResource("/tracker.properties").getPath();
-        ClientGlobal.initByProperties(path);
+        System.out.println(path);
+        ClientGlobal.initByProperties("tracker.properties");
 
         TrackerClient trackerClient = new TrackerClient();
         TrackerServer trackerServer = trackerClient.getTrackerServer();

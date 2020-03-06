@@ -5,7 +5,7 @@
 
 <mapper namespace="com.xliu.gmall.manage.mapper.PmsProductSaleAttrMapper">
 
-    <select id="spuSaleAttrListCheckBySku" resultMap="spuSaleAttrListCheckBySkuMap">
+    <select id="selectSpuSaleAttrListCheckBySku" resultMap="selectSpuSaleAttrListCheckBySkuMap">
         SELECT
             sa.id as sa_id, sav.id as sav_id,sa.*,sav.*,if(ssav.sku_id,1,0) as isChecked
         FROM
@@ -17,7 +17,7 @@
         AND ssav.sku_id = #{skuId}
     </select>
 
-    <resultMap id="spuSaleAttrListCheckBySkuMap" type="com.xliu.gmall.bean.PmsProductSaleAttr" autoMapping="true">
+    <resultMap id="selectSpuSaleAttrListCheckBySkuMap" type="com.xliu.gmall.bean.PmsProductSaleAttr" autoMapping="true">
         <result column="sa_id" property="id"></result>
         <collection property="spuSaleAttrValueList" ofType="com.xliu.gmall.bean.PmsProductSaleAttrValue" autoMapping="true">
             <result column="sav_id" property="id"></result>

@@ -994,7 +994,7 @@
 		</div>
 
 
-		<input id="skuId" type="text"  th:value= " ${skuInfo?.id}"  />
+		<input id="skuId" type="hidden"  th:value= " ${skuInfo?.id}"  />
 
 		<div class="Fixedbian">
 			<ul>
@@ -1005,7 +1005,9 @@
 			<img src="/img/44.png" />
 			<span>购物车还没有商品，赶紧选购吧！</span>
 		</div>
+		<input type="hidden" th:value="${skuSaleAttrHash}" id="valuesSku">
 	</body>
+
 
 	<script src="/js/jquery1.9.js" type="text/javascript" charset="utf-8"></script>
 	<script src="/js/js.js" type="text/javascript" charset="utf-8"></script>
@@ -1025,13 +1027,11 @@
             // 拼接成属性值串
             for (var i = 0; i < checkDivs.length; i++) {
                 var saleAttrValueDiv = checkDivs.eq(i);
-                if(i>0){
-                    valueIds= valueIds+"|";
-                }
-                valueIds=valueIds+saleAttrValueDiv.attr("value");
+                valueIds=valueIds+saleAttrValueDiv.attr("value")+"|";
             }
             //页面上的hashjson
             var valuesSku = $("#valuesSku").attr("value");
+
             var valuesSkuJson=JSON.parse(valuesSku);
 
             // 看看hash有没有
