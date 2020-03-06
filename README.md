@@ -5,7 +5,7 @@
 前台展示界面使用Thymeleaf
 采用Dubbo服务框架,mySql数据库，   
 图片存储采用分布式存储数据工具fastdfs  
-Redis缓存优化性能
+使用Redis优化性能,添加Redisson分布式锁支持
 
 gmall-user-service 用户服务service层 8070  
 gmall-user-web 用户服务web层 8080  
