@@ -5,7 +5,8 @@
 前台展示界面使用Thymeleaf
 采用Dubbo服务框架,mySql数据库，   
 图片存储采用分布式存储数据工具fastdfs  
-使用Redis优化性能,添加Redisson分布式锁支持
+使用Redis优化性能,添加Redisson分布式锁支持  
+使用elasticSearch实现搜索功能
 
 gmall-user-service 用户服务service层 8070  
 gmall-user-web 用户服务web层 8080  
@@ -14,4 +15,7 @@ gmall-manage-service manage的service层 8071
 gmall-manage-web manage的web层 8081  
  
 gmall-item-web 前台的商品详情展示web层 8082
+
+gmall-search-service search的service层 8073  
+gmall-search-web search的web层 8083  
 
