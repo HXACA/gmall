@@ -2,7 +2,7 @@
 
 整合Springboot,mybatis的电商网站模板  
 后台管理界面：前后端分离,前端框架为Vue  
-前台展示界面使用Thymeleaf
+前台展示界面使用Thymeleaf  
 采用Dubbo服务框架,mySql数据库，   
 图片存储采用分布式存储数据工具fastdfs  
 使用Redis优化性能,添加Redisson分布式锁支持  
