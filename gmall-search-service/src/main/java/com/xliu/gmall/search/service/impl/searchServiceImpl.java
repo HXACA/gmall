@@ -13,6 +13,8 @@ import org.elasticsearch.common.xcontent.XContentBuilder;
 import org.elasticsearch.index.query.BoolQueryBuilder;
 import org.elasticsearch.index.query.MatchQueryBuilder;
 import org.elasticsearch.index.query.TermQueryBuilder;
+import org.elasticsearch.search.aggregations.AggregationBuilders;
+import org.elasticsearch.search.aggregations.bucket.terms.TermsBuilder;
 import org.elasticsearch.search.builder.SearchSourceBuilder;
 import org.elasticsearch.search.highlight.HighlightBuilder;
 import org.elasticsearch.search.sort.SortBuilder;
@@ -39,6 +41,7 @@ public class searchServiceImpl implements SearchService {
     @Override
     public List<PmsSearchSkuInfo> list(PmsSearchParam pmsSearchParam) {
         List<PmsSearchSkuInfo>pmsSearchSkuInfos = new ArrayList<>();
+        //拿到查询语句
         String dsl = getSearchDsl(pmsSearchParam);
         System.out.println(dsl);
         Search search = new Search.Builder(dsl).addIndex("gmall0105").addType("PmsSkuInfo").build();
@@ -51,8 +54,8 @@ public class searchServiceImpl implements SearchService {
         List<SearchResult.Hit<PmsSearchSkuInfo, Void>> hits = result.getHits(PmsSearchSkuInfo.class);
         for (SearchResult.Hit<PmsSearchSkuInfo, Void> hit : hits) {
             PmsSearchSkuInfo source = hit.source;
-            if(StringUtils.isNotBlank(pmsSearchParam.getKeyword())){
-                Map<String, List<String>> highlight = hit.highlight;
+            Map<String, List<String>> highlight = hit.highlight;
+            if(highlight!=null){
                 String skuName = highlight.get("skuName").get(0);
                 source.setSkuName(skuName);
             }
@@ -62,7 +65,7 @@ public class searchServiceImpl implements SearchService {
     }
 
     private String getSearchDsl(PmsSearchParam pmsSearchParam) {
-        List<PmsSkuAttrValue> skuAttrValueList = pmsSearchParam.getSkuAttrValueList();
+        String[] skuAttrValueList = pmsSearchParam.getValueId();
         String keyword = pmsSearchParam.getKeyword();
         String catalog3Id = pmsSearchParam.getCatalog3Id();
 
@@ -72,8 +75,8 @@ public class searchServiceImpl implements SearchService {
         BoolQueryBuilder boolQueryBuilder = new BoolQueryBuilder();
         //filter
         if(skuAttrValueList!=null){
-            for (PmsSkuAttrValue pmsSkuAttrValue : skuAttrValueList) {
-                TermQueryBuilder termQueryBuilder = new TermQueryBuilder("skuAttrValueList.valueId",pmsSkuAttrValue.getValueId());
+            for (String s : skuAttrValueList) {
+                TermQueryBuilder termQueryBuilder = new TermQueryBuilder("skuAttrValueList.valueId",s);
                 boolQueryBuilder.filter(termQueryBuilder);
             }
         }
@@ -96,6 +99,7 @@ public class searchServiceImpl implements SearchService {
         searchSourceBuilder.from(0);
         searchSourceBuilder.size(20);
         searchSourceBuilder.sort("id",SortOrder.DESC);
+
         return searchSourceBuilder.toString();
     }
 

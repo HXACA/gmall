@@ -19,3 +19,6 @@ gmall-item-web 前台的商品详情展示web层 8082
 gmall-search-service search的service层 8073  
 gmall-search-web search的web层 8083  
 
+gmall-cart-service cart的service层 8074  
+gmall-cart-web cart的web层 8084  
+

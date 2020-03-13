@@ -13,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import tk.mybatis.mapper.entity.Example;
 
 import java.util.List;
+import java.util.Set;
 
 /**
  * @author liuxin
@@ -90,5 +91,14 @@ public class AttrServiceImpl implements AttrService {
     @Override
     public List<PmsBaseSaleAttr> baseSaleAttrList() {
         return pmsBaseSaleAttrMapper.selectAll();
+    }
+
+    @Override
+    public List<PmsBaseAttrInfo> getAttrValueListByValueId(Set<String> valueIdSet) {
+        String valueIdStr = StringUtils.join(valueIdSet, ",");
+        if(StringUtils.isNotBlank(valueIdStr))
+            return pmsBaseAttrInfoMapper.selectAttrValueListByValueId(valueIdStr);
+        else
+            return null;
     }
 }
